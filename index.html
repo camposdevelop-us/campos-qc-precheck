@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title> Campos QC Pre-check</title>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <style>
+    body {
+      font-family: "IBM Plex Sans", sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #212844;
+      color: white;
+      padding: 20px;
+    }
+
+    header img {
+      height: 50px;
+      vertical-align: middle;
+    }
+
+    header h1 {
+      display: inline-block;
+      margin-left: 10px;
+      vertical-align: middle;
+    }
+
+    main {
+      margin-top: 30px;
+    }
+
+    form, select, button {
+      margin: 10px auto;
+      display: block;
+    }
+
+    #previewContainer {
+      margin-top: 20px;
+    }
+
+    #loadingDots {
+      display: none;
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      z-index: 1000;
+    }
+
+    .dot {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      margin: 0 5px;
+      background-color: #4caf50;
+      border-radius: 50%;
+      animation: pulse 1.2s infinite ease-in-out;
+    }
+
+    .dot:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .dot:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes pulse {
+      0%, 80%, 100% {
+        transform: scale(0.8);
+        opacity: 0.6;
+      }
+      40% {
+        transform: scale(1.2);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="https://camposcompanies.com/wp-content/uploads/2025/08/Campos-Logo-Yellow.svg" alt="Campos Logo"><br>
+    <h1>Campos QC Pre-check</h1>
+  </header>
+
+  <main>
+    <h2>Upload Drawing Package</h2>
+
+    <label for="clientSelect"><b>Client Name:</b></label>
+    <select id="clientSelect" name="client">
+      <option value="Xcel" selected>Xcel</option>
+      <option value="PGE">PGE (Place Holder)</option>
+      <option value="SDGE">SDGE (Place Holder)</option>
+      <option value="Nisource">Nisource (Place Holder)</option>
+    </select>
+
+    <form id="uploadForm" enctype="multipart/form-data">
+      <label for="fileInput">Choose a PDF file:</label>
+      <input id="fileInput" type="file" name="file" accept="application/pdf" required />
+      <button type="submit">Upload</button>
+    </form>
+
+    <p id="result"></p>
+
+    <div id="previewContainer">
+      <h3>PDF Preview:</h3>
+      <iframe id="pdfPreview" width="80%" height="500px"></iframe>
+    </div>
+
+    <button id="runBtn" style="display:none;">Run Analysis</button>
+    <p id="analysisResult"></p>
+
+    <!-- Pulsing dots loader -->
+    <div id="loadingDots">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+  </main>
+
+  <script>
+  let uploadedFileName = ''; // Stores the uploaded file name
+
+  // Handles PDF file selection and preview
+  document.getElementById('fileInput').addEventListener('change', function(event) {
+    const file = event.target.files[0]; // Get selected file
+    const preview = document.getElementById('pdfPreview'); // PDF preview iframe
+    const runBtn = document.getElementById('runBtn'); // Run Analysis button
+
+    if (file && file.type === 'application/pdf') { // Check if PDF
+      const fileURL = URL.createObjectURL(file); // Create URL for preview
+      preview.src = fileURL; // Show PDF in iframe
+      runBtn.style.display = 'block'; // Show Run Analysis button
+    } else {
+      preview.src = ''; // Clear preview if not PDF
+      runBtn.style.display = 'none'; // Hide Run Analysis button
+    }
+  });
+
+  // Handles file upload form submission
+  document.getElementById('uploadForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent default form submission
+    const fileInput = document.getElementById('fileInput'); // File input element
+    const result = document.getElementById('result'); // Result message element
+    const runBtn = document.getElementById('runBtn'); // Run Analysis button
+
+    if (fileInput.files.length > 0) { // Check if file selected
+      const file = fileInput.files[0]; // Get selected file
+      uploadedFileName = file.name; // Store file name
+      result.textContent = 'File uploaded successfully: ' + file.name; // Show success message
+      runBtn.style.display = 'block'; // Show Run Analysis button
+    } else {
+      result.textContent = 'Please select a file to upload.'; // Show error message
+    }
+  });
+
+  // Handles Run Analysis button click
+  document.getElementById('runBtn').addEventListener('click', function() {
+    const analysisResult = document.getElementById('analysisResult'); // Analysis result element
+    const loadingDots = document.getElementById('loadingDots'); // Loader element
+
+    analysisResult.textContent = 'Analysis is running...'; // Show running message
+    loadingDots.style.display = 'block'; // Show loader
+
+    setTimeout(() => { // Simulate analysis delay
+      loadingDots.style.display = 'none'; // Hide loader
+      analysisResult.textContent = '✅ Analysis complete!'; // Show complete message
+    }, 5000); // 5 seconds delay
+  });
+  </script>
+</body>
+</html>
