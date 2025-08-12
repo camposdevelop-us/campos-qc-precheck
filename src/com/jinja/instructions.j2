@@ -1,0 +1,85 @@
+Based on INSTRUCTIONS/Explainations below and the template files above(only for reference), answer the questions for each point:
+
+1."Analyze a technical drawing or plan to detect all multi-leaders. A multi-leader is defined as a piece of text that is always followed by a line ending in an arrow pointing to an object (e.g., 'main gate'). The text must be at 0 degrees rotation (horizontal) to be considered correctly oriented. If the text does not have a line ending in an arrow, it is not a multi-leader and may follow the angle of the drawing lines. Identify and list all detected multi-leaders and determine if any of them are rotated (i.e., not at 0 degrees)."
+2."Visual Check this drawing and:Identify if it's a plan or isometric view.Detect if a north arrow is present.Verify if the north arrow is correctly rotated for the view type."
+3."Visual Check that all text in the drawing is legible and does not overlap any lines, shapes, or images."
+4."Titleblock section is referred to as the bottom section of the page. It contains the seactions- (i) FLOC number below Xcel Energy logo (ii) HISTORY and DATE table. All the rows should have text under the HISTORY with some values followed by ':' and DATE should have some values. (iii) REVISIONS table should have all the columns filled for a row that is mentioned. (iv) REGULATOR STATION section should be present and all the fields under it should be filled.No sub-section should be empty. It's sub-fields are SERVICE CENTER, LOCATION, DIVISION, CITY/COUNTRY and TYPE.
+Question:Are all required fields in the Titleblock filled out? Visual check that all fields are complete." 
+5."We sometimes use X,Y or Z as placeholders for little circles containing some codes in the drawing areas of the pages. I want you to check and verify that all these circles detected do not contain these placeholders and have proper values. Return all the circles text that you can detect on the page. I have provided Extracted text, in the end, as well to help you read the numbers and codes correctly."
+6. "Identify 'ELEVATION' Callouts:
+Scan the drawing for circular callouts. Exlcude the detail and section callouts.
+Find elevation callouts (letters only above the center line or no line).
+Ignore callouts with numbers above the line.
+Format Check
+Top: letter.
+Bottom: numeric sheet/page number.
+Confirm top is alphabetical and bottom matches actual sheet.
+Ensure letters are in alphabetical order.
+For each callout, report:
+Letter (top)
+Referenced page (bottom)
+Actual page found
+Drawing location
+If None Found Report: NOT FOUND/NOT APPLICABLE".
+ 
+7. Identify 'SECTION' Callouts:
+Scan the drawing for circular callouts. Exclude the elevation and detail callouts.
+Focus only on callouts where the word 'SECTION' is present.
+Find section callouts (letters above the center line).
+Ignore numeric-only callouts.
+Format Check 
+Top: letter.
+Bottom: numeric sheet/page number.
+Confirm top is alphabetical and bottom matches actual sheet.
+Check for logical alphabetical sequence (e.g., A, B, C...).
+For each callout, report:
+Section letter (top)
+Referenced page (bottom)
+Actual page found
+Drawing location
+If None Found
+Report: NOT FOUND/NOT APPLICABLE
+
+8..Identify 'DETAIL' Callouts:Scan the drawing for circular callouts.
+Focus only on callouts with numbers above the center line.
+Ignore callouts with letters above the line (these refer to sections or elevations).
+Idetify the Callout
+Confirm it includes:
+A numeric detail number (above the line).
+A numeric sheet/page number (below the line).
+Check that:
+The top number is numeric only.
+The bottom number matches the actual page where the detail appears.
+If multiple detail callouts are on the same page, ensure the detail numbers are in ascending order.
+For each valid callout, output the following format:Detail [Detail Number] / Page [Referenced Page] – [Correct/Incorrect reference]. Located [Location Description].
+If no numeric-only detail callouts are present, respond with: Not Applicated
+
+9. Do any lines cross? Visual check that lines don’t cross.
+
+10. Check Spelling other than acronyms and report the wrong spellings. The acronyms list is ['(V)', '2P', '2SSW', '3SSW', 'A', 'a', 'AC', 'ACB', 'ACN', 'ACT', 'ADA', 'AFFF', 'AG', 'AGA', 'AISC', 'ANN', 'AO', 'API', 'APPROX', 'ARO', 'AS', 'ASTM', 'ATM', 'AWG', 'AWS', 'b', 'BD', 'BF', 'BG', 'BOM', 'BRK', 'BVM', 'Ca', 'CADD', 'CAP', 'Cb', 'CBD', 'CC', 'CC-AE', 'CCAP', 'CD', 'CDOT', 'CHO', 'CL', 'CLR', 'CO', 'CO-AE', 'COMB', 'CPT', 'CR', 'CSC', 'CSO', 'CSTS-P', 'CSTS-P', 'DC', 'DCS', 'DIA', 'DIAMETER', 'DPDT', 'DPSC', 'DPSO', 'DS', 'DWB', 'DWG', 'EC', 'EE', 'EI', 'EL', 'or', 'ELEV', 'EMT', 'EP', 'EPC', 'EQ', 'ERW', 'ESD', 'ESTOP', 'ETM', 'EW', 'F/F', 'F’C', 'FBE', 'FC', 'FCV', 'FH', 'FL', 'FLG', 'FLOC', 'FLTC', 'FLTC-RL', 'FLTO', 'FLTO-RL', 'FMC', 'FO', 'FP', 'FSC', 'FSC-IF', 'FSO', 'FSO-IF', 'FVNR', 'Fy', 'GALV', 'GCM', 'GD', 'GEO-REF', 'GFCI', 'GFI', 'GLS', 'GND', 'GP', 'GPH', 'GPM', 'GPS', 'GR', 'GRC', 'HAZ', 'HC', 'HDD', 'HDL', 'HMWPE', 'HMV', 'HN', 'H-O-A', 'HOA', 'H-O-R', 'HORIZ', 'HP', 'HSD', 'HSS', 'HV', 'HW', 'Hz', 'I/O', 'IBC', 'IGND', 'IP', 'ISB', 'IT', 'IU', 'J', 'JB', 'JPG', 'KCMIL', 'Ksi', 'KV', 'KVA', 'KVAR', 'KW', 'KWH', 'LA', 'LAT', 'LC', 'LD', 'LED', 'LG', 'LO', 'LONG', 'LOR', 'LPA', 'LOV', 'LP', 'LS', 'LSC', 'LSC-HC', 'LSO', 'LSO-HC', 'lT', 'LTG', 'mA', 'Ma', 'MANUF', 'or', 'MANF', 'MAOP', 'MAX', 'Mb', 'MCC', 'MCFH', 'MCM', 'MCO', 'MCV', 'MDD', 'MIN', 'ML', 'MNLN', 'MONITor', 'Mon', 'MOV', 'MS', 'MSH', 'MTR', 'mV', 'MW', 'N', 'N2', 'NC', 'NC1', 'NDE', 'NEC', 'NGST', 'NLL', 'NNF', 'NO', 'NO1', 'NPS', 'O/S', 'OCB', 'OD', 'OL', 'OLE', 'ORG', 'P/O', 'P2T', 'PAV', 'PB', 'PBC', 'PBO', 'PC', 'PC&S', 'PCR', 'PCV', 'PE', 'PF', 'PFD', 'PID', 'or', 'P&ID', 'PIT', 'PL', 'PLC', 'PM', 'POWERPLAN', 'PPM', 'PRES', 'PSC', 'PSC-RP', 'PSD', 'PSF', 'PSIG', 'PSO', 'PSO-RP', 'PSX', 'PT', 'PTFE', 'PTT', 'PY', 'QD', 'RAV', 'RAV', 'REG', 'REQ', 'REV', 'RGE', 'RGLTR', 'or', 'REG', 'RGS', 'ROC', 'ROV', 'ROW', 'RP', 'RS', 'or', 'REG', 'STA', 'RTD', 'RTU', 'S/S', 'SC', 'SCFD', 'SCFH', 'SCH', 'SCFM', 'SD', 'SDC', 'SH', 'SM', 'SME', 'SMLS', 'SMYS', 'SN', 'SNC', 'SNO', 'SO', 'SOL', 'SOW', 'SP', 'SPC’G', 'SPDT', 'SPRG', 'SPST', 'SR', 'SS', 'SSD', 'SSPC', 'ST', 'STDS', 'STR', 'SWGR', 'T', 'T/T', 'TB', 'TC', 'TD', 'TDSC-DE', 'TDSC-E', 'TDSO-DE', 'TDSO-E', 'TEG', 'TEL', 'TLS', 'T-O', 'TOC', 'TOG', 'TORSC', 'TORSO', 'TS', 'TSC', 'TSC-RT', 'TSO', 'TSO-RT', 'TSP', 'TYP', 'UCI', 'UG', 'ULT', 'UNCC', 'UPS', 'UV', 'V', 'VA', 'VERT', 'VFD', 'VGC', 'VLS', 'VM', 'VS', 'VSC', 'VSC-IV', 'VSI', 'VSO', 'VSO-IV', 'VT', 'W', 'WH', 'WO', 'WP', 'WRK', 'WWW', 'XFMR', 'XFMR1', 'XREF', 'ZI']
+
+11.Task: Analyze the uploaded image to detect if a legend is present.
+ If a legend is found, return its position (bounding box coordinates).
+Then, cross-check the lines or symbols in the drawing with the legend entries.
+For each legend item, verify if the corresponding line or symbol in the drawing matches the color or style described in the legend.
+ Return:
+ Whether a legend is detected
+The position of the legend (if found)
+A list of legend items and whether each one matches a corresponding line in the drawing by color/style
+ Use image processing.
+
+12. Are the words "NEW", "PROPOSED" or "EXISTING" used within the drawing space? Visual check for these words.
+
+13. Do multi-leader arrows terminate on an item?
+
+14. Have flow arrows been added? Visual check that flow arrows have been used. 
+
+15. Are there arrows at every change of direction? Visual check for arrows at intersections of common lines. 
+
+16. Are the on/off arrows showing flow left to right? Visual check that on/off arrows are in the correct orientation. 
+
+17. The CAMPOS LOGO SHOULD ALWAYS match the logo from the logo template file (the ADDRESS along with number of lines in the template should match the number of lines in the provided image) Does the logo match and is correct?
+
+18.  The Client LOGO SHOULD ALWAYS match the clogo from the client logo template file. Does the logo match and is correct?
+
+Provide only the observations for all the checks based on the instructions along with proper placements of these observations.DO not provide summaries, just return answer like a checklist. Include the position on the page, for all the answers supporting your response,  where does it live on the page.
