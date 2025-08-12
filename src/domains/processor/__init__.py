@@ -1,7 +1,7 @@
 from src.com.azure.openai import AzureOpenAI
 from src.com.azure.documentintelligence import AzureDocumentIntelligence
 from src.com.azure.blob import AzureStorageBlob
-from .process import process_pdf
+from .pdf.process import process_pdf
 
 async def start(input_pdf_path, output_folder):
     docintelligence = AzureDocumentIntelligence()

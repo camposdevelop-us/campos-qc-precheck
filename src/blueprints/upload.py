@@ -1,6 +1,6 @@
 import os
 from flask import Blueprint, jsonify, current_app, request
-from src.domains.pdf import start
+from src.domains.processor import start
 
 
 upload_bp = Blueprint('upload', __name__)

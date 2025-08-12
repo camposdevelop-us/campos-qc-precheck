@@ -21,7 +21,7 @@ async def start(pdf_name: str, output_folder: str, images_path: str, openai: Azu
     encoded_campos_logo = asset_manager.get_encoded("logos", "campos.jpg")
     encoded_xcel_energy_logo = asset_manager.get_encoded("logos", "xcel_energy.png")
     # Iterate through each file in the directory  
-    breakpoint()
+    page_number = 1
     for file_name in os.listdir(images_path): 
         if not file_name: 
             continue
@@ -33,7 +33,7 @@ async def start(pdf_name: str, output_folder: str, images_path: str, openai: Azu
             print(f"Processing image: {file_name}")  
 
             # Extract page number from the filename (e.g., "page_4.jpg")  
-            page_number = file_name.split('-')[1].split('.')[0]  # Extract "4" from "page_4.jpg"  
+            # page_number = file_name.split('-')[1].split('.')[0]  # Extract "4" from "page_4.jpg"  
 
             encoded_image = base64.b64encode(open(image_path, 'rb').read()).decode('ascii')  
             
@@ -110,7 +110,6 @@ async def start(pdf_name: str, output_folder: str, images_path: str, openai: Azu
                 messages=chat_prompt,
                 max_tokens=16000
             ) 
-            breakpoint()
             json_file_name = file_name.split('.',1)[0] if '.' in file_name else file_name
 
             response_files.append({"Page Number": page_number, "Response": openai_response})
@@ -127,7 +126,7 @@ async def start(pdf_name: str, output_folder: str, images_path: str, openai: Azu
 
                 
             # response_files.append({"Page Number": page_number, "Response": openai_response}) 
-            
+            page_number = page_number + 1
         except Exception as e:  
             print(f"Error processing {file_name}: {e}")  
   
@@ -139,4 +138,47 @@ async def start(pdf_name: str, output_folder: str, images_path: str, openai: Azu
     final_response_file = os.path.join(output_folder, "final_summary.json")  
     with open(final_response_file, "w", encoding="utf-8") as f:  
         json.dump(response_files, f, ensure_ascii=False, indent=4)  # Save as JSON for better formatting  
-  
+
+    await process_checklist(response_files, output_folder, get_output_summary(), openai)
+
+
+async def process_checklist(response_files, output_folder, output_summary_prompt, openai: AzureOpenAI):    
+    chat_prompt = [
+        {
+            "role": "system",
+            "content": [
+                {
+                    "type": "text",
+                    "text": "You are an AI assistant that helps people verify Specific information pass the information by each page to page Based on the details below categorize the answers/ observations into three categories also explain if falls under Failed  Explain the reason what condition was not met:Pass failed Not Found/ Not Applicated."
+                }
+            ]
+        },
+        {
+            "role": "user",
+            "content": [
+                {
+                    "type": "text",
+                    "text": f"{output_summary_prompt} details are; {response_files}"
+                }
+            ]
+        }
+    ]
+    
+    output_response = await openai.chat_completion(
+        messages=chat_prompt,
+        max_tokens=2000,
+        # temperature=0.0,
+        # top_p=0.95,
+        # frequency_penalty=0,
+        # presence_penalty=0,
+        # stop=None,
+        # stream=False
+    )
+    
+    # ans=completion.choices[0].message.content
+    # Write the AI response (checklist) to Azure Blob Storage  
+    # write_text_to_blob(blob_service_client, container_name, blob_name, ans)
+    # Write checklist to local output folder
+    with open(os.path.join(output_folder,"checklist.txt"), "w", encoding="utf-8") as file: 
+        file.write(output_response)
+    

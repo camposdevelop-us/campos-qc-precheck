@@ -1,0 +1,15 @@
+body {
+font-family: "IBM Plex Sans", sans-serif;  
+margin: 20px;
+}
+
+label, select, input, button {
+  display: block;
+  margin: 10px 0;
+}
+
+#previewContainer {
+  margin-top: 20px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
