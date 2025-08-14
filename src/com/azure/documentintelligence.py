@@ -1,6 +1,5 @@
 import os
 from dotenv import load_dotenv
-from pathlib import Path
 from flask import current_app
 from azure.ai.documentintelligence import DocumentIntelligenceClient
 from azure.core.credentials import AzureKeyCredential

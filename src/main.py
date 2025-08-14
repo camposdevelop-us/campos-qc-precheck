@@ -1,9 +1,9 @@
-from flask import Flask, request, jsonify
+from flask import Flask,render_template
 from flask_cors import CORS
 import os
 from pathlib import Path
 from dotenv import load_dotenv
-from src.blueprints.upload import upload_bp
+from src.blueprints.analyze import analyze_bp
 
 
 dotenv_path = Path(__file__).parents[1] / '.env'
@@ -34,8 +34,8 @@ for folder in [app.config['UPLOAD_FOLDER'], app.config['OUTPUT_FOLDER']]:
 
 @app.route('/')
 def home():
-    return "Welcome!"
+    return render_template("index.html")
 
-app.register_blueprint(upload_bp)
+app.register_blueprint(analyze_bp)
 
     

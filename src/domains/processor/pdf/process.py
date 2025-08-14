@@ -31,7 +31,7 @@ async def process_pdf(pdf_path, output_base_path, docintelligence, openai, blob,
     # Step 3: Extract page dimensions and save them as JSON files  
     dimensions = extract_dimensions(main_folder, pdf_path, pdf_name, docintelligence_client, blob)
     # Step 4: Process Images
-    await start(pdf_name, main_folder, output_images_path, openai, blob)
+    return await start(pdf_name, main_folder, output_images_path, openai, blob)
  
 def convert_to_images(output_images_path: str, pdf_path: str, blob):
     os.makedirs(output_images_path, exist_ok=True)  

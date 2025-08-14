@@ -139,7 +139,7 @@ async def start(pdf_name: str, output_folder: str, images_path: str, openai: Azu
     with open(final_response_file, "w", encoding="utf-8") as f:  
         json.dump(response_files, f, ensure_ascii=False, indent=4)  # Save as JSON for better formatting  
 
-    await process_checklist(response_files, output_folder, get_output_summary(), openai)
+    return await process_checklist(response_files, output_folder, get_output_summary(), openai)
 
 
 async def process_checklist(response_files, output_folder, output_summary_prompt, openai: AzureOpenAI):    
@@ -179,6 +179,8 @@ async def process_checklist(response_files, output_folder, output_summary_prompt
     # Write the AI response (checklist) to Azure Blob Storage  
     # write_text_to_blob(blob_service_client, container_name, blob_name, ans)
     # Write checklist to local output folder
-    with open(os.path.join(output_folder,"checklist.txt"), "w", encoding="utf-8") as file: 
+    checklistpath = os.path.join(output_folder,"checklist.txt")
+    with open(checklistpath, "w", encoding="utf-8") as file: 
         file.write(output_response)
     
+    return checklistpath

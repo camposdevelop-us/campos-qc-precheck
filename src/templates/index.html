@@ -1,44 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap"
+    rel="stylesheet">
   <meta charset="UTF-8">
   <title> Campos QC Pre-check</title>
   <style>
     body {
-      font-family:"IBM Plex Sans", sans-serif;
+      font-family: "IBM Plex Sans", sans-serif;
       text-align: center;
       margin: 0;
       padding: 0;
     }
+
     header {
       background-color: #212844;
       color: white;
       padding: 20px;
     }
+
     header img {
       height: 50px;
       vertical-align: middle;
     }
+
     header h1 {
       display: inline-block;
       margin-left: 10px;
       vertical-align: middle;
     }
+
     main {
       margin-top: 30px;
     }
-    form, select, button {
+
+    form,
+    select,
+    button {
       margin: 10px auto;
       display: block;
     }
+
     #previewContainer {
       margin-top: 20px;
     }
   </style>
 </head>
+
 <body>
   <header>
     <img src="https://camposcompanies.com/wp-content/uploads/2025/08/Campos-Logo-Yellow.svg"> <br>
@@ -50,7 +61,7 @@
 
     <label for="clientSelect"><b>Client Name:</b></label>
     <select id="clientSelect" name="client">
-      <option value="Xcel"selected>Xcel</option>
+      <option value="Xcel" selected>Xcel</option>
       <option value="PGE">PGE(Place Holder)</option>
       <option value="SDGE">SDGE(Place Holder)</option>
       <option value="Nisource">Nisource(Place Holder)</option>
@@ -69,34 +80,11 @@
       <iframe id="pdfPreview" width="80%" height="500px"></iframe>
     </div>
 
-    <button id="runBtn" style="display:none;">Run Analysis</button>
-    <p id="analysisResult"></p>
+    <button id="runBtn" style="display:none;">Run Analysis</button> 
+   <p id="analysisResult"></p> 
   </main>
-<script src="script.js"></script>
-  <script>
-    document.getElementById('uploadForm').addEventListener('submit', function(event) {
-      event.preventDefault();
-      const fileInput = document.getElementById('fileInput');
-      const result = document.getElementById('result');
-      const pdfPreview = document.getElementById('pdfPreview');
-      const runBtn = document.getElementById('runBtn');
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
 
-      if (fileInput.files.length > 0) {
-        const file = fileInput.files[0];
-        const fileURL = URL.createObjectURL(file);
-        pdfPreview.src = fileURL;
-        result.textContent = 'File uploaded successfully: ' + file.name;
-        runBtn.style.display = 'block';
-      } else {
-        result.textContent = 'Please select a file to upload.';
-      }
-    });
-
-    document.getElementById('runBtn').addEventListener('click', function() {
-      const analysisResult = document.getElementById('analysisResult');
-      analysisResult.textContent = 'Analysis is running... (this is a placeholder)';
-      // Add your analysis logic here
-    });
-  </script>
 </body>
+
 </html>
