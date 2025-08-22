@@ -1,0 +1,26 @@
+
+
+body {
+  font-family: "IBM Plex Sans", sans-serif;  /* Use IBM Plex Sans font */
+  margin: 20px; /* Add space around the page */
+}
+
+
+label, select, input, button {
+  display: block; /* Each element on its own line */
+  margin: 10px 0; /* Space above and below */
+}
+
+#previewContainer {
+  margin-top: 20px; /* Space above preview */
+  border: 1px solid #ccc; /* Light border around preview */
+  padding: 10px; /* Padding inside preview container */
+
+}
+
+#analysisResult {
+  margin-top: 20px; /* Space above result */
+  font-size: 18px; /* Larger font for result */
+}
+
+

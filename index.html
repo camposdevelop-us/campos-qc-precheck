@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Campos QC Pre-check</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: "IBM Plex Sans", sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+    }
+
+    header {
+      background-color: #212844;
+      color: white;
+      padding: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    header img {
+      height: 50px;
+      vertical-align: middle;
+    }
+
+    header h1 {
+      display: inline-block;
+      margin-left: 10px;
+      vertical-align: middle;
+    }
+
+    main {
+      margin-top: 30px;
+      animation: fadeIn 1s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    
+    select, button {
+      margin: 10px auto;
+      display: block;
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    #secondarySelect {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <img src="https://camposcompanies.com/wp-content/uploads/2025/08/Campos-Logo-Yellow.svg" alt="Campos Logo"><br>
+    <h1>Campos QC Pre-check</h1>
+  </header>
+
+  <main>
+    <h2>Upload Drawing Package</h2>
+ 
+  <label for="clientSelect"><b>Client Name:</b></label>
+  <select id="clientSelect" name="client" size="4"></select>
+ 
+  <div id="secondarySelect" style="display: none;">
+    <label for="packageType"><b>Package Type:</b></label>
+    <select id="packageType" name="packageType">
+      <option value="Pipeline">Pipeline</option>
+      <option value="Electrical">Electrical</option>
+      <option value="Complete">Complete Package</option>
+    </select>
+  </div>
+  <br>
+  </div>
+  <form id="uploadForm" enctype="multipart/form-data">
+    <label for="fileInput">Choose a PDF file:</label>
+    <input id="fileInput" type="file" name="file" accept="application/pdf" required />
+    <button type="submit">Upload</button>
+  </form>
+  <p id="result"></p>
+  <div id="previewContainer">
+    <h3>PDF Preview:</h3>
+    <iframe id="pdfPreview" width="80%" height="500px"></iframe>
+  </div>
+  <br>
+  <button id="runBtn" style="display:none;">Run Analysis</button>
+  <p id="analysisResult"></p>
+  <button id="showChecklistBtn" style="display:none;">Show Checklist</button>
+  <div id="checklistResult" style="white-space: pre-wrap; background: #fffbe6; border: 1px solid #e2c96c; padding: 16px; margin: 20px auto; width: 80%; display: none;"></div>
+  </main>
+ <script src="script.js"></script>
+
+
+ 
